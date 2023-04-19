@@ -12,7 +12,7 @@ source:
 build:
   skip: true  # [py<36]
   skip: true  # [not win]
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps
   number: 0
 
 requirements:
@@ -20,8 +20,10 @@ requirements:
     - {{ compiler('c') }}
   host:
     - python
-    - sphinx
-    - pip
+    - sphinx 5.0.2
+    - pip 23.0.1
+    - setuptools
+    - wheel
   run:
     - python
 
@@ -34,12 +36,18 @@ test:
     - pip
 
 about:
-  home: https://github.com/mongodb-labs/winkerberos
+  home: https://github.com/mongodb/winkerberos
   license: Apache-2.0
   license_file: LICENSE
-  summary: High level interface to SSPI for Kerberos client auth
   license_family: Apache
-
+  summary: High level interface to SSPI for Kerberos client auth
+  description: |
+    A native Kerberos client implementation for Python on Windows.
+    This module mimics the API of pykerberos to implement Kerberos
+    authentication with Microsoft's Security Support Provider Interface (SSPI).
+    It supports Python 2.7 and 3.5+.
+  doc_url: https://pypi.org/project/winkerberos/
+  dev_url: https://github.com/mongodb/winkerberos
 extra:
   recipe-maintainers:
     - ocefpaf
