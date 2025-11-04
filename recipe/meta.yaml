@@ -1,13 +1,13 @@
 {% set name = "winkerberos" %}
-{% set version = "0.9.1" %}
+{% set version = "0.12.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/winkerberos-{{ version }}.zip
-  sha256: 02ec925c2aa4fe4f7656792a76e346d8fab13e12ced2732354a21958adfe92c6
+  url: https://pypi.org/packages/source/w/winkerberos/winkerberos-0.12.2.tar.gz
+  sha256: ff91daed04727a0362892802ee093d8da11f08536393526bdf3bc64e04079faa
 
 build:
   skip: true  # [py<36]
@@ -21,9 +21,8 @@ requirements:
   host:
     - python
     - sphinx 5.0.2
-    - pip 23.0.1
-    - setuptools
-    - wheel
+    - pip
+    - setuptools >=61.0
   run:
     - python
 
@@ -48,6 +47,7 @@ about:
     It supports Python 2.7 and 3.5+.
   doc_url: https://pypi.org/project/winkerberos/
   dev_url: https://github.com/mongodb/winkerberos
+
 extra:
   recipe-maintainers:
     - ocefpaf
