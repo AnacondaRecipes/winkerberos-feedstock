@@ -10,29 +10,33 @@ source:
   sha256: ff91daed04727a0362892802ee093d8da11f08536393526bdf3bc64e04079faa
 
 build:
-  skip: true  # [py<36]
-  skip: true  # [not win]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
+  skip: true  # [py<39 or unix]
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
   host:
     - python
-    - sphinx 5.0.2
     - pip
     - setuptools >=61.0
   run:
     - python
 
 test:
+  source_files:
+    - tests
   imports:
     - winkerberos
-  commands:
-    - pip check
   requires:
     - pip
+    - pytest  
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
 
 about:
   home: https://github.com/mongodb/winkerberos
@@ -45,7 +49,7 @@ about:
     This module mimics the API of pykerberos to implement Kerberos
     authentication with Microsoft's Security Support Provider Interface (SSPI).
     It supports Python 2.7 and 3.5+.
-  doc_url: https://pypi.org/project/winkerberos/
+  doc_url: https://pypi.org/project/winkerberos
   dev_url: https://github.com/mongodb/winkerberos
 
 extra:
